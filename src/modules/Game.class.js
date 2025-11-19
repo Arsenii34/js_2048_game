@@ -215,35 +215,13 @@ class Game {
    */
 
   restart() {
-    const grid = Array(4)
+    this.grid = Array(4)
       .fill(null)
       .map(() => Array(4).fill(null));
 
-    this.grid = grid;
     this.status = 'playing';
-
-    const generateRandomTileValue = () => {
-      const value = Math.floor(Math.random() < 0.9 ? 2 : 4);
-
-      return value;
-    };
-
-    function insertRandomTile(grid, value, emptyCells) {
-      const randomCell = Math.floor(Math.random() * emptyCells.length);
-      const [row, col] = emptyCells[randomCell];
-
-      return (grid[row][col] = value);
-    }
-
-    let emptyCells = this.getEmptyCells(grid);
-    const value1 = generateRandomTileValue();
-
-    insertRandomTile(grid, value1, emptyCells);
-    emptyCells = this.getEmptyCells(grid);
-
-    const value2 = generateRandomTileValue();
-
-    insertRandomTile(grid, value2, emptyCells);
+    this.addRandomTile();
+    this.addRandomTile();
   }
 
   checkWin() {
@@ -291,18 +269,23 @@ class Game {
   addRandomTile() {
     const emptyCells = [];
 
-    this.forEachCell(this.grid, (row, col, value) => {
-      if (value === null) {
+    this.forEachCell(this.grid, (row, col) => {
+      if (this.grid[row][col] === null) {
         emptyCells.push({ row, col });
       }
     });
 
-    const randomCell = Math.floor(Math.random() * emptyCells.length);
-    const cell = emptyCells[randomCell];
-    const { row, col } = cell;
+    if (emptyCells.length === 0) {
+      return false;
+    }
+
+    const randomIndex = Math.floor(Math.random() * emptyCells.length);
+    const { row: r, col: c } = emptyCells[randomIndex];
     const need = Math.random() < 0.9 ? 2 : 4;
 
-    this.grid[row][col] = need;
+    this.grid[r][c] = need;
+
+    return true;
   }
 }
 
