@@ -4,9 +4,9 @@ const Game = require('../modules/Game.class');
 const game = new Game();
 
 // Write your code here
-const loseMeseg = document.querySelector('.message-lose');
-const winMeseg = document.querySelector('.message-win');
-const startMeseg = document.querySelector('.message-start');
+const loseMesseg = document.querySelector('.message-lose');
+const winMesseg = document.querySelector('.message-win');
+const startMesseg = document.querySelector('.message-start');
 const start = document.querySelector('.button .start');
 
 function startGame() {
@@ -33,9 +33,9 @@ function render() {
       cell.textContent = val || '';
     }
   }
-  winMeseg.classList.toggle('hidden', game.status !== 'win');
-  loseMeseg.classList.toggle('hidden', game.status !== 'lose');
-  startMeseg.classList.toggle('hidden', game.status === 'playing');
+  winMesseg.classList.toggle('hidden', game.status !== 'win');
+  loseMesseg.classList.toggle('hidden', game.status !== 'lose');
+  startMesseg.classList.toggle('hidden', game.status === 'playing');
 }
 
 start.addEventListener('click', () => {
