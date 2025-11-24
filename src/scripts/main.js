@@ -7,7 +7,8 @@ const game = new Game();
 const loseMesseg = document.querySelector('.message-lose');
 const winMesseg = document.querySelector('.message-win');
 const startMesseg = document.querySelector('.message-start');
-const start = document.querySelector('.button .start');
+const start = document.querySelector('.button.start');
+const field = document.querySelector('.game-field');
 
 function startGame() {
   game.restart();
@@ -18,7 +19,7 @@ function startGame() {
 
 function render() {
   const grid = game.getState();
-  const cells = document.querySelectorAll('.cell');
+  const cells = document.querySelectorAll('.field-cell');
   const score = document.querySelector('.game-score');
 
   score.textContent = game.getScore();
@@ -42,43 +43,44 @@ start.addEventListener('click', () => {
   startGame();
 });
 
+const moveMap = {
+  left: () => game.moveLeft(),
+  right: () => game.moveRight(),
+  up: () => game.moveUp(),
+  down: () => game.moveDown(),
+};
+
+const move = (direction) => {
+  const action = moveMap[direction];
+
+  if (action) {
+    const moved = action();
+    if (moved){
+      game.addRandomTile();
+      game.checkWin();
+      game.checkLose();
+      render();
+    }
+  }
+};
+
 document.addEventListener('keydown', function (eventt) {
   switch (eventt.key) {
     case 'ArrowLeft':
     case 'a':
-      if (game.moveLeft()) {
-        game.addRandomTile();
-        game.checkWin();
-        game.checkLose();
-        render();
-      }
+      move('left');
       break;
     case 'ArrowRight':
     case 'd':
-      if (game.moveRight()) {
-        game.addRandomTile();
-        game.checkWin();
-        game.checkLose();
-        render();
-      }
+      move('right');
       break;
     case 'ArrowUp':
     case 'w':
-      if (game.moveUp()) {
-        game.addRandomTile();
-        game.checkWin();
-        game.checkLose();
-        render();
-      }
+      move('up');
       break;
     case 'ArrowDown':
     case 's':
-      if (game.moveDown()) {
-        game.addRandomTile();
-        game.checkWin();
-        game.checkLose();
-        render();
-      }
+      move('down');
       break;
   }
 });

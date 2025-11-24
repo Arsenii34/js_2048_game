@@ -68,7 +68,7 @@ class Game {
       this.grid[row] = this.mergeRow(this.grid[row]);
     }
 
-    this.insertRandomTile();
+    this.addRandomTile();
     this.checkWin();
     this.checkLose();
   }
@@ -92,7 +92,7 @@ class Game {
 
       this.mergeColumnWithDirection(colum, 'up', x);
     }
-    this.insertRandomTile();
+    this.addRandomTile();
     this.checkWin();
     this.checkLose();
   }
@@ -103,7 +103,7 @@ class Game {
 
       this.mergeColumnWithDirection(colum, 'down', x);
     }
-    this.insertRandomTile();
+    this.addRandomTile();
     this.checkWin();
     this.checkLose();
   }
