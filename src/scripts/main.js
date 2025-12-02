@@ -8,7 +8,7 @@ const loseMesseg = document.querySelector('.message-lose');
 const winMesseg = document.querySelector('.message-win');
 const startMesseg = document.querySelector('.message-start');
 const start = document.querySelector('.button.start');
-const field = document.querySelector('.game-field');
+// const field = document.querySelector('.game-field');
 
 function startGame() {
   game.restart();
@@ -19,6 +19,7 @@ function startGame() {
 
 function render() {
   const grid = game.getState();
+  console.log(grid);
   const cells = document.querySelectorAll('.field-cell');
   const score = document.querySelector('.game-score');
 
@@ -34,9 +35,12 @@ function render() {
       cell.textContent = val || '';
     }
   }
+  const cellsContent = Array.from(cells).map(cell => cell.textContent);
+    console.log(cellsContent);
   winMesseg.classList.toggle('hidden', game.status !== 'win');
   loseMesseg.classList.toggle('hidden', game.status !== 'lose');
   startMesseg.classList.toggle('hidden', game.status === 'playing');
+  console.log(grid);
 }
 
 start.addEventListener('click', () => {
@@ -55,7 +59,8 @@ const move = (direction) => {
 
   if (action) {
     const moved = action();
-    if (moved){
+
+    if (moved) {
       game.addRandomTile();
       game.checkWin();
       game.checkLose();
