@@ -59,8 +59,6 @@ class Game {
         .map(() => Array(4).fill(null));
     this.score = 0;
     this.status = 'idle';
- 
-    console.log(initialState);
   }
 
   moveLeft() {
@@ -73,7 +71,6 @@ class Game {
       this.grid[row] = need;
 
       const neww = [...this.grid[row]];
-
 
       if (JSON.stringify(neww) !== JSON.stringify(old)) {
         changed = true;
@@ -191,8 +188,6 @@ class Game {
    */
 
   mergeRow(rowArray) {
-
-
     const startLenth = rowArray.length;
     const copy = [];
 
@@ -215,26 +210,18 @@ class Game {
       copy.push(null);
     }
 
-
     return copy;
   }
   mergeRowRigth(rowArray) {
-
-
     const reverse = [...rowArray].reverse();
     const need = this.mergeRow(reverse);
     const result = need.reverse();
 
-
-
     return result;
   }
 
-
   mergeColumn(columnArray, direction, columnIndex) {
     let changed = false;
-
-
 
     const originn = [...columnArray];
     const startLength = columnArray.length;
@@ -290,7 +277,6 @@ class Game {
 
     return [changed, this.grid];
   }
-
 
   getStatus() {
     return `${this.status}`;

@@ -9,26 +9,7 @@ const winMesseg = document.querySelector('.message-win');
 const startMesseg = document.querySelector('.message-start');
 const start = document.querySelector('.button.start');
 const cellElement = document.querySelectorAll('.field-cell');
- const mapColor = {
-  2: "#eee4da",
-  4: "#ede0c8",
-  8: "#f2b179",
-  16: "#f59563",
-  32: '#f67c5f',
-  64: '#f65e3b',
-  128: '#edcf72',
-  256: '#edcc61',
-  512: '#edc850',
-  1024: '#edc53f',
-  2048: '#edc22e'
- }
- function updateCellColors ( importance){
-  cellElement.forEach(element => {
-    let need = element.textContent;
-    let value = Number(need);
-      element.style.background = mapColor[value] || '#d6cdc4';
-  });
- }
+
 function startGame() {
   game.restart();
   game.score = 0;
@@ -39,9 +20,7 @@ function startGame() {
 function render() {
   const grid = game.getState();
 
-
-
-  const cells = document.querySelectorAll('.field-cell');
+  const cells = cellElement;
   const score = document.querySelector('.game-score');
 
   score.textContent = game.getScore();
@@ -52,15 +31,24 @@ function render() {
     for (let c = 0; c < grid[r].length; c++) {
       const val = grid[r][c];
       const cell = cells[i++];
-
+      cell.classList.forEach(element => {
+      if(element.startsWith('field-cell--')){
+        cell.classList.remove(element);
+      }
+      });
       cell.textContent = val || '';
+
+
+      if (val > 0){
+      cell.classList.add(`field-cell--${val}`);
+    }
     }
   }
 
   winMesseg.classList.toggle('hidden', game.status !== 'win');
   loseMesseg.classList.toggle('hidden', game.status !== 'lose');
   startMesseg.classList.toggle('hidden', game.status === 'playing');
-  updateCellColors();
+  
 }
 
 start.addEventListener('click', () => {
@@ -88,7 +76,6 @@ const move = (direction) => {
     }
   }
 };
-
 
 document.addEventListener('keydown', function (eventt) {
   switch (eventt.key) {
