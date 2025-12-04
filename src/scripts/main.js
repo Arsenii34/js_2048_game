@@ -31,28 +31,28 @@ function render() {
     for (let c = 0; c < grid[r].length; c++) {
       const val = grid[r][c];
       const cell = cells[i++];
-      cell.classList.forEach(element => {
-      if(element.startsWith('field-cell--')){
-        cell.classList.remove(element);
-      }
+
+      cell.classList.forEach((element) => {
+        if (element.startsWith('field-cell--')) {
+          cell.classList.remove(element);
+        }
       });
       cell.textContent = val || '';
 
-
-      if (val > 0){
-      cell.classList.add(`field-cell--${val}`);
-    }
+      if (val > 0) {
+        cell.classList.add(`field-cell--${val}`);
+      }
     }
   }
 
   winMesseg.classList.toggle('hidden', game.status !== 'win');
   loseMesseg.classList.toggle('hidden', game.status !== 'lose');
   startMesseg.classList.toggle('hidden', game.status === 'playing');
-  
 }
 
 start.addEventListener('click', () => {
   startGame();
+  start.textContent = 'Restart';
 });
 
 const moveMap = {
