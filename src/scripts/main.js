@@ -47,7 +47,8 @@ function render() {
 
   winMesseg.classList.toggle('hidden', game.status !== 'win');
   loseMesseg.classList.toggle('hidden', game.status !== 'lose');
-  startMesseg.classList.toggle('hidden', game.status === 'playing');
+  startMesseg.classList.toggle('hidden', game.status === 'playing' ||
+    game.status === 'lose');
 }
 
 start.addEventListener('click', () => {
